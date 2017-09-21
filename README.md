@@ -14,7 +14,7 @@ from shapeshift import ShapeShift
 
 s = Shapeshift() # create api object
 
-s.rate(btc_ltc) # api call get the current rate offered by Shapeshift.
+s.rate('btc_ltc') # api call get the current rate offered by Shapeshift.
 # { 'pair': 'btc_ltc', 'rate': '74.65621067'}
 ```
 
