@@ -54,12 +54,6 @@ class ShapeShift:
         url: shapeshift.io/rate/[pair]
         method: GET
 
-        Success Output:
-
-            {
-                "pair" : "btc_ltc",
-                "rate" : "70.1234"
-            }
         """
         return self.__apicall_get(endpoint='rate', param={}, arg=pair)
 
@@ -76,12 +70,6 @@ class ShapeShift:
 
         url: shapeshift.io/limit/[pair]
         method: GET
-
-        Success Output:
-            {
-                "pair" : "btc_ltc",
-                "limit" : "1.2345"
-            }
         """
 
         return self.__apicall_get(endpoint='limit', param={}, arg=pair)
@@ -96,15 +84,6 @@ class ShapeShift:
 
         url: shapeshift.io/marketinfo/[pair]
         method: GET
-
-        Success Output:
-            {
-                "pair"     : "btc_ltc",
-                "rate"     : 130.12345678,
-                "limit"    : 1.2345,
-                "min"      : 0.02621232,
-                "minerFee" : 0.0001
-            }
         """
 
         return self.__apicall_get(endpoint='marketinfo', param={}, arg=pair)
@@ -113,23 +92,13 @@ class ShapeShift:
         """
         Get a list of the most recent transactions.
 
-        :param maxtx: is an optional maximum number of transactions to return.
-                    If [maxtx] is not specified this will return 5 transactions.
-                    Also, [maxtx] must be a number between 1 and 50 (inclusive).
+        :param maxtx: is an optional maximum number of transactions to return. If [maxtx] is not
+        specified this will return 5 transactions.Also, [maxtx] must be a number between 1
+        and 50 (inclusive).
         :return: json object
-        url: shapeshift.io/recenttx/[max]
-        method: GET
 
-        Success Output:
-            [
-                {
-                curIn : [currency input],
-                curOut: [currency output],
-                amount: [amount],
-                timestamp: [time stamp]     //in seconds
-                },
-                ...
-            ]
+        url: shapeshift.io/recenttx/[maxtx]
+        method: GET
         """
         return self.__apicall_get(endpoint='recenttx', param={}, arg=str(maxtx))
 
@@ -142,38 +111,6 @@ class ShapeShift:
 
         url: shapeshift.io/txStat/[address]
         method: GET
-
-        Success Output:  (various depending on status)
-
-        Status: No Deposits Received
-            {
-                status:"no_deposits",
-                address:[address]           //matches address submitted
-            }
-
-        Status: Received (we see a new deposit but have not finished processing it)
-            {
-                status:"received",
-                address:[address]           //matches address submitted
-            }
-
-        Status: Complete
-        {
-            status : "complete",
-            address: [address],
-            withdraw: [withdrawal address],
-            incomingCoin: [amount deposited],
-            incomingType: [coin type of deposit],
-            outgoingCoin: [amount sent to withdrawal address],
-            outgoingType: [coin type of withdrawal],
-            transaction: [transaction id of coin sent to withdrawal address]
-        }
-
-        Status: Failed
-        {
-            status : "failed",
-            error: [Text describing failure]
-        }
         """
         return self.__apicall_get(endpoint='tsStat', param={}, arg=address)
 
@@ -192,16 +129,6 @@ class ShapeShift:
 
         url: shapeshift.io/timeremaining/[address]
         method: GET
-
-        Success Output:
-
-            {
-                status:"pending",
-                seconds_remaining: 600
-            }
-
-        The status can be either "pending" or "expired".
-        If the status is expired then seconds_remaining will show 0.
         """
         return self.__apicall_get(endpoint='timeremaining', param={}, arg=address)
 
@@ -214,22 +141,6 @@ class ShapeShift:
 
         url: shapeshift.io/getcoins
         method: GET
-
-        Success Output:
-
-            {
-                "SYMBOL1" :
-                    {
-                        name: ["Currency Formal Name"],
-                        symbol: <"SYMBOL1">,
-                        image: ["https://shapeshift.io/images/coins/coinName.png"],
-                        status: [available / unavailable]
-                    }
-                (one listing per supported currency)
-            }
-
-        The status can be either "available" or "unavailable". Sometimes coins become temporarily unavailable during updates or
-        unexpected service issues.
         """
         return self.__apicall_get(endpoint='getcoins', param={})
 
@@ -245,26 +156,6 @@ class ShapeShift:
 
         url: shapeshift.io/txbyapikey/[apiKey]
         method: GET
-
-
-
-        [
-            {
-                inputTXID: [Transaction ID of the input coin going into shapeshift],
-                inputAddress: [Address that the input coin was paid to for this shift],
-                inputCurrency: [Currency type of the input coin],
-                inputAmount: [Amount of input coin that was paid in on this shift],
-                outputTXID: [Transaction ID of the output coin going out to user],
-                outputAddress: [Address that the output coin was sent to for this shift],
-                outputCurrency: [Currency type of the output coin],
-                outputAmount: [Amount of output coin that was paid out on this shift],
-                shiftRate: [The effective rate the user got on this shift.],
-                status: [status of the shift]
-            }
-            (one listing per transaction returned)
-        ]
-
-        The status can be  "received", "complete", "returned", "failed".
         """
         return self.__apicall_get(endpoint='txbyapikey', param={}, arg=apikey)
 
@@ -285,27 +176,6 @@ class ShapeShift:
 
         url: shapeshift.io/txbyaddress/[address]/[apiKey]
         method: GET
-
-        Success Output:
-
-            [
-                {
-                    inputTXID: [Transaction ID of the input coin going into shapeshift],
-                    inputAddress: [Address that the input coin was paid to for this shift],
-                    inputCurrency: [Currency type of the input coin],
-                    inputAmount: [Amount of input coin that was paid in on this shift],
-                    outputTXID: [Transaction ID of the output coin going out to user],
-                    outputAddress: [Address that the output coin was sent to for this shift],
-                    outputCurrency: [Currency type of the output coin],
-                    outputAmount: [Amount of output coin that was paid out on this shift],
-                    shiftRate: [The effective rate the user got on this shift.],
-                    status: [status of the shift]
-                }
-                (one listing per transaction returned)
-            ]
-
-        The status can be  "received", "complete", "returned", "failed".
-
         """
         return self.__apicall_get(endpoint='txbyaddress', param={},
                                   arg="{}/{}".format(address, apikey))
@@ -322,19 +192,6 @@ class ShapeShift:
 
         url: shapeshift.io/validateAddress/[address]/[coinSymbol]
         method: GET
-
-        Success Output:
-
-
-                {
-                    isValid: [true / false],
-                    error: [(if isvalid is false, there will be an error message)]
-                }
-
-
-        isValid will either be true or false. If isvalid returns false, an error parameter will
-        be present and will contain a descriptive error message.
-
         """
         return self.__apicall_get(endpoint='validateAddress', param={},
                                   arg="{}/{}".format(address, coinSymbol))
@@ -358,17 +215,6 @@ class ShapeShift:
         data type: JSON
 
         example data: {"withdrawal":"AAAAAAAAAAAAA", "pair":"btc_ltc", returnAddress:"BBBBBBBBBBB"}
-
-        Success Output:
-            {
-                deposit: [Deposit Address (or memo field if input coin is BTS / BITUSD)],
-                depositType: [Deposit Type (input coin symbol)],
-                withdrawal: [Withdrawal Address], //-- will match address submitted in post
-                withdrawalType: [Withdrawal Type (output coin symbol)],
-                public: [NXT RS-Address pubkey (if input coin is NXT)],
-                xrpDestTag : [xrpDestTag (if input coin is XRP)],
-                apiPubKey: [public API attached to this shift, if one was given]
-            }
         """
         payload = {
             'withdrawal'   : withdrawal,
@@ -399,14 +245,6 @@ class ShapeShift:
         data required:
 
         example data {"email":"mail@example.com", "txid":"123ABC"}
-
-        Success Output:
-        {"email":
-            {
-                "status":"success",
-                "message":"Email receipt sent"
-            }
-        }
         """
         payload = {
             'email': email,
@@ -445,31 +283,9 @@ class ShapeShift:
           Data required:
         example data {"amount":123, "withdrawal":"123ABC", "pair":"ltc_btc", returnAddress:"BBBBBBB"}
 
-
-          Success Output:
-
-
-        {
-             success:
-              {
-                pair: [pair],
-                withdrawal: [Withdrawal Address], //-- will match address submitted in post
-                withdrawalAmount: [Withdrawal Amount], // Amount of the output coin you will receive
-                deposit: [Deposit Address (or memo field if input coin is BTS / BITUSD)],
-                depositAmount: [Deposit Amount], // Exact amount of input coin to send in
-                expiration: [timestamp when this will expire],
-                quotedRate: [the exchange rate to be honored]
-                apiPubKey: [public API attached to this shift, if one was given]
-              }
-        }
-
-
-
         //2. Quoted Price request
         //Note :  This request will only return information about a quoted rate
         //         This request will NOT generate the deposit address.
-
-
 
           Data required:
 
@@ -478,21 +294,6 @@ class ShapeShift:
 
         example data {"amount":123, "pair":"ltc_btc"}
 
-
-          Success Output:
-
-
-        {
-             success:
-              {
-                pair: [pair],
-                withdrawalAmount: [Withdrawal Amount], // Amount of the output coin you will receive
-                depositAmount: [Deposit Amount], // Exact amount of input coin to send in
-                expiration: [timestamp when this will expire],
-                quotedRate: [the exchange rate to be honored]
-                minerFee: [miner fee for this transaction]
-              }
-        }
         """
         payload = {
             'withdrawal'   : withdrawal,
@@ -518,15 +319,6 @@ class ShapeShift:
         data type: JSON
 
         Example data : {address : "1HB5XMLmzFVj8ALj6mfBsbifRoD4miY36v"}
-
-        Success Output:
-
-         {  success  : " Pending Transaction cancelled "  }
-
-        Error Output:
-
-         {  error  : {errorMessage}  }
-
         """
 
         return self.__api_call_post(endpoint='cancelpending', param={'address': adddress})
