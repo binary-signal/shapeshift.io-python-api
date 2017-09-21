@@ -5,14 +5,29 @@ Python REST API implementation for Shapeshift.io
 the library is designed to run with Python 3, first install requests package e.g pip install requests
 
 ## Usage
-```ruby
+```python
 s = Shapeshift() # create api object
+
 s.getcoins() # api call return all the available coins in Shapeshift
-# returns { 'pair': 'btc_ltc',
-#  'rate': '74.65621067'}
-s.rate(btc_ltc) 
 ```
-Returns
+```pyhon
+# returns { 'pair': 'btc_ltc', 'rate': '74.65621067'}
+
+s.rate(btc_ltc) 
+
+```
+```json
+'ETH': {                   'image': 'https://shapeshift.io/images/coins/ether.png',
+                                               'imageSmall': 'https://shapeshift.io/images/coins-sm/ether.png',
+                                               'name': 'Ether',
+                                               'status': 'available',
+                                               'symbol': 'ETH'},
+                    'FCT': {                   'image': 'https://shapeshift.io/images/coins/factoids.png',
+                                               'imageSmall': 'https://shapeshift.io/images/coins-sm/factoids.png',
+                                               'name': 'Factoids',
+                                               'status': 'available',
+                                               'symbol': 'FCT'}, 
+```
 
 
 
