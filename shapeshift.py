@@ -1,7 +1,10 @@
+"""
+Shapeshift API Python
+EvanM / September 21 2017
+"""
+
 import json
 import requests
-from time import sleep
-from pprint import pprint
 
 class ShapeShift:
     def __init__(self):
