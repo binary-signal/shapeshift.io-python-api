@@ -38,8 +38,20 @@ class ShapeShift:
         not a direct market rate. Meaning multiplying your input coin amount times the rate should
         give you a close approximation of what will be sent out. This rate does not include the
         transaction (miner) fee taken off every transaction.
+
         :param pair: is any valid coin pair such as btc_ltc or ltc_btc
         :return: json object
+
+
+        url: shapeshift.io/rate/[pair]
+        method: GET
+
+        Success Output:
+
+            {
+                "pair" : "btc_ltc",
+                "rate" : "70.1234"
+            }
         """
         return self.__apicall(endpoint='rate', param={}, arg=pair)
 
@@ -49,8 +61,19 @@ class ShapeShift:
         sent to the return address if one was entered, otherwise the user will need to contact
         ShapeShift support to retrieve their coins. This is an estimate because a sudden market swing
         could move the limit.
+
         :param pair: is any valid coin pair such as btc_ltc or ltc_btc
         :return: json object
+
+
+        url: shapeshift.io/limit/[pair]
+        method: GET
+
+        Success Output:
+            {
+                "pair" : "btc_ltc",
+                "limit" : "1.2345"
+            }
         """
 
         return self.__apicall(endpoint='limit', param={}, arg=pair)
@@ -58,9 +81,22 @@ class ShapeShift:
     def marketinfo(self, pair=''):
         """
         This gets the market info (pair, rate, limit, minimum limit, miner fee)
+
         :param pair: (OPTIONAL) is any valid coin pair such as btc_ltc or ltc_btc.
         The pair is not required and if not specified will return an array of all market infos.
         :return: json object
+
+        url: shapeshift.io/marketinfo/[pair]
+        method: GET
+
+        Success Output:
+            {
+                "pair"     : "btc_ltc",
+                "rate"     : 130.12345678,
+                "limit"    : 1.2345,
+                "min"      : 0.02621232,
+                "minerFee" : 0.0001
+            }
         """
 
         return self.__apicall(endpoint='marketinfo', param={}, arg=pair)
@@ -68,18 +104,68 @@ class ShapeShift:
     def recenttx(self, maxtx=5):
         """
         Get a list of the most recent transactions.
+
         :param maxtx: is an optional maximum number of transactions to return.
                     If [maxtx] is not specified this will return 5 transactions.
                     Also, [maxtx] must be a number between 1 and 50 (inclusive).
         :return: json object
+        url: shapeshift.io/recenttx/[max]
+        method: GET
+
+        Success Output:
+            [
+                {
+                curIn : [currency input],
+                curOut: [currency output],
+                amount: [amount],
+                timestamp: [time stamp]     //in seconds
+                },
+                ...
+            ]
         """
         return self.__apicall(endpoint='recenttx', param={}, arg=str(maxtx))
 
     def tsStat(self, address):
         """
         This returns the status of the most recent deposit transaction to the address.
+
         :param address: is the deposit address to look up
         :return: (various depending on status)
+
+        url: shapeshift.io/txStat/[address]
+        method: GET
+
+        Success Output:  (various depending on status)
+
+        Status: No Deposits Received
+            {
+                status:"no_deposits",
+                address:[address]           //matches address submitted
+            }
+
+        Status: Received (we see a new deposit but have not finished processing it)
+            {
+                status:"received",
+                address:[address]           //matches address submitted
+            }
+
+        Status: Complete
+        {
+            status : "complete",
+            address: [address],
+            withdraw: [withdrawal address],
+            incomingCoin: [amount deposited],
+            incomingType: [coin type of deposit],
+            outgoingCoin: [amount sent to withdrawal address],
+            outgoingType: [coin type of withdrawal],
+            transaction: [transaction id of coin sent to withdrawal address]
+        }
+
+        Status: Failed
+        {
+            status : "failed",
+            error: [Text describing failure]
+        }
         """
         return self.__apicall(endpoint='tsStat', param={}, arg=address)
 
@@ -95,6 +181,19 @@ class ShapeShift:
 
         :param address: is the deposit address to look up
         :return: json object
+
+        url: shapeshift.io/timeremaining/[address]
+        method: GET
+
+        Success Output:
+
+            {
+                status:"pending",
+                seconds_remaining: 600
+            }
+
+        The status can be either "pending" or "expired".
+        If the status is expired then seconds_remaining will show 0.
         """
         return self.__apicall(endpoint='timeremaining', param={}, arg=address)
 
@@ -104,6 +203,25 @@ class ShapeShift:
         given time. The list will include the name, symbol, availability status, and an icon link for
         each.
         :return: json object
+
+        url: shapeshift.io/getcoins
+        method: GET
+
+        Success Output:
+
+            {
+                "SYMBOL1" :
+                    {
+                        name: ["Currency Formal Name"],
+                        symbol: <"SYMBOL1">,
+                        image: ["https://shapeshift.io/images/coins/coinName.png"],
+                        status: [available / unavailable]
+                    }
+                (one listing per supported currency)
+            }
+
+        The status can be either "available" or "unavailable". Sometimes coins become temporarily unavailable during updates or
+        unexpected service issues.
         """
         return self.__apicall(endpoint='getcoins', param={})
 
