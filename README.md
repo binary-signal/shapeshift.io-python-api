@@ -14,14 +14,14 @@ s.rate(btc_ltc)
 
 ```pyhon
 s.getcoins() # api call return all the available coins in Shapeshift
-#'ETH': {                   'image': 'https://shapeshift.io/images/coins/ether.png',
-                                               'imageSmall': 'https://shapeshift.io/images/coins-sm/ether.png',
-                                               'name': 'Ether',
-                                               'status': 'available',
-                                               'symbol': 'ETH'},
-                                               ...
-                                               ...
-                                               ...
+#'ETH': {      'image': 'https://shapeshift.io/images/coins/ether.png',
+               'imageSmall': 'https://shapeshift.io/images/coins-sm/ether.png',
+               'name': 'Ether',
+               'status': 'available',
+               'symbol': 'ETH'},
+                ...
+              ...
+            ...
 
 ```
 
