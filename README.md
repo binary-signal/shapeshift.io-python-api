@@ -8,30 +8,23 @@ the library is designed to run with Python 3, first install requests package e.g
 ```python
 s = Shapeshift() # create api object
 
-s.getcoins() # api call return all the available coins in Shapeshift
-```
-```pyhon
-# returns { 'pair': 'btc_ltc', 'rate': '74.65621067'}
-
 s.rate(btc_ltc) 
-
+# { 'pair': 'btc_ltc', 'rate': '74.65621067'}
 ```
-```json
-'ETH': {                   'image': 'https://shapeshift.io/images/coins/ether.png',
+
+```pyhon
+s.getcoins() # api call return all the available coins in Shapeshift
+#'ETH': {                   'image': 'https://shapeshift.io/images/coins/ether.png',
                                                'imageSmall': 'https://shapeshift.io/images/coins-sm/ether.png',
                                                'name': 'Ether',
                                                'status': 'available',
                                                'symbol': 'ETH'},
-                    'FCT': {                   'image': 'https://shapeshift.io/images/coins/factoids.png',
-                                               'imageSmall': 'https://shapeshift.io/images/coins-sm/factoids.png',
-                                               'name': 'Factoids',
-                                               'status': 'available',
-                                               'symbol': 'FCT'}, 
+                                               ...
+                                               ...
+                                               ...
+
 ```
 
-
-
-  
 ## Available API Endpoints
 ###  GET Methods
 * Rate - rate/
