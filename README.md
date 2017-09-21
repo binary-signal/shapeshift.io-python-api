@@ -2,13 +2,17 @@
 Python REST API implementation for Shapeshift.io
 
 ## Installation 
-the library is designed to run with Python 3, first install requests package e.g pip install requests
+The library is designed to run with Python 3.
+
+First install requests package with pip install requests
+
+Documentation for the API and more details on the api arguments can be found in this link https://info.shapeshift.io/api
 
 ## Usage
 ```python
 s = Shapeshift() # create api object
 
-s.rate(btc_ltc) # api call return get the current rate offered by Shapeshift.
+s.rate(btc_ltc) # api call get the current rate offered by Shapeshift.
 # { 'pair': 'btc_ltc', 'rate': '74.65621067'}
 ```
 
