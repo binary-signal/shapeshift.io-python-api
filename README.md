@@ -47,3 +47,6 @@ s.getcoins() # api call return all the available coins in Shapeshift
 
 ### POST Methods
 * Normal Transaction - shift/
+* Request Email Receipt - mail/
+* Fixed Amount Transaction / Quote Send Exact Price - sendamount/
+* Cancel Pending Transaction - cancelpending/
