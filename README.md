@@ -10,6 +10,8 @@ Documentation for the API and more details on the api arguments can be found in 
 
 ## Usage
 ```python
+from shapeshift import ShapeShift
+
 s = Shapeshift() # create api object
 
 s.rate(btc_ltc) # api call get the current rate offered by Shapeshift.
