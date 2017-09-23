@@ -100,6 +100,8 @@ class ShapeShift:
         url: shapeshift.io/recenttx/[maxtx]
         method: GET
         """
+        if maxtx > 50:
+            raise ValueError('error maxtx over 50')
         return self.__apicall_get(endpoint='recenttx', param={}, arg=str(maxtx))
 
     def tsStat(self, address):
