@@ -87,7 +87,7 @@ class ShapeShift:
             raise ValueError('error maxtx over 50')
         return self.__apicall_get(endpoint='recenttx', param={}, arg=str(maxtx))
 
-    def tsStat(self, address):
+    def txstat(self, address):
         """
         This returns the status of the most recent deposit transaction to the address.
 
@@ -97,7 +97,7 @@ class ShapeShift:
         url: shapeshift.io/txStat/[address]
         method: GET
         """
-        return self.__apicall_get(endpoint='tsStat', param={}, arg=address)
+        return self.__apicall_get(endpoint='txstat', param={}, arg=address)
 
     def timeremaining(self, address):
         """
