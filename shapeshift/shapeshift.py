@@ -55,23 +55,6 @@ class ShapeShift:
         method: GET
 
         """
-        return self.__apicall_get(endpoint='rate', param={}, arg=pair)
-
-    def limit(self, pair):
-        """
-        Gets the current deposit limit set by Shapeshift. Amounts deposited over this limit will be
-        sent to the return address if one was entered, otherwise the user will need to contact
-        ShapeShift support to retrieve their coins. This is an estimate because a sudden market swing
-        could move the limit.
-
-        :param pair: is any valid coin pair such as btc_ltc or ltc_btc
-        :return: json object
-
-
-        url: shapeshift.io/limit/[pair]
-        method: GET
-        """
-
         return self.__apicall_get(endpoint='limit', param={}, arg=pair)
 
     def marketinfo(self, pair=''):
@@ -134,6 +117,25 @@ class ShapeShift:
         """
         return self.__apicall_get(endpoint='timeremaining', param={}, arg=address)
 
+    def onlinecoins(self):
+        """
+        This endpoint will return the ticker of all available coins.
+        """
+        return self.__apicall_get(endpoint="onlinecoins",param={})
+    
+    
+    def offlinecoins(self):
+        """
+        This endpoint will return the ticker of all available coins.
+        """
+        return self.__apicall_get(endpoint="offlinecoins",param={})
+    
+    def validpairs(self):
+        """
+        This endpoint will return all valid coin pairs available on ShapeShift.
+        """
+        return self.__apicall_get(endpoint="validpairs",param={})
+    
     def getcoins(self):
         """
         Allows anyone to get a list of all the currencies that Shapeshift currently supports at any
@@ -323,4 +325,17 @@ class ShapeShift:
         Example data : {address : "1HB5XMLmzFVj8ALj6mfBsbifRoD4miY36v"}
         """
 
+        return self.__api_call_post(endpoint='cancelpending', param={'address': adddress})
+    
+    def orderinfo(self,order_id):
+        """
+        This endpoint will return information related to the Order ID in question, including status, withdraw address, deposit addresses, incoming coin, outgoing coin, all transaction hashes, all URLs, and time-based information.
+        :param order_id: The order id returned in the response of a transaction
+        :return: json object
+        
+        url: shapeshift.io/orderInfo/[order_id]
+        method: GET 
+        data type: JSON
+        """
+        
         return self.__api_call_post(endpoint='cancelpending', param={'address': adddress})
