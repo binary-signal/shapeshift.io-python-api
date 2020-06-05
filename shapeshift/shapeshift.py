@@ -51,7 +51,7 @@ class ShapeShift:
         :return: json object
 
 
-        url: shapeshift.io/rate/[pair]
+        url: shapeshift.io/limit/[pair]
         method: GET
 
         """
@@ -120,6 +120,9 @@ class ShapeShift:
     def onlinecoins(self):
         """
         This endpoint will return the ticker of all available coins.
+        
+        url: shapeshift.io/onlinecoins
+        method: GET
         """
         return self.__apicall_get(endpoint="onlinecoins",param={})
     
@@ -127,6 +130,9 @@ class ShapeShift:
     def offlinecoins(self):
         """
         This endpoint will return the ticker of all available coins.
+        
+        url: shapeshift.io/onlinecoins
+        method: GET
         """
         return self.__apicall_get(endpoint="offlinecoins",param={})
     
