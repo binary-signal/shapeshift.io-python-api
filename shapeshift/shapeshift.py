@@ -28,14 +28,14 @@ class ShapeShift:
     def __apicall_get(self, endpoint, param={}, arg=''):
         url = self.baseurl + "{}".format(endpoint)
         if arg != '':
-            url = url + "{}/".format(arg)
+            url = url + "/{}".format(arg)
         answer = self.__get(url, param)
         return json.loads(answer)
 
     def __api_call_post(self, endpoint, param={}, arg=''):
         url = self.baseurl + "{}".format(endpoint)
         if arg != '':
-            url = url + "{}/".format(arg)
+            url = url + "/{}".format(arg)
         answer = self.__post(url, param)
         return json.loads(answer)
 
@@ -206,8 +206,8 @@ class ShapeShift:
         return self.__apicall_get(endpoint='validateAddress', param={},
                                   arg="{}/{}".format(address, coinSymbol))
 
-    # post requests
-    def shift(self, withdrawal, pair, returnAddress=None,
+
+    def shift(self, pair,withdrawal="", returnAddress=None,
               destTag=None, rsAddress=None, apiKey=None):
         """
         This is the primary data input into ShapeShift.
@@ -227,6 +227,7 @@ class ShapeShift:
         example data: {"withdrawal":"AAAAAAAAAAAAA", "pair":"btc_ltc", returnAddress:"BBBBBBBBBBB"}
         """
         payload = {
+            'amount'       : amount,
             'withdrawal'   : withdrawal,
             'pair'         : pair,
             'returnAddress': returnAddress,
