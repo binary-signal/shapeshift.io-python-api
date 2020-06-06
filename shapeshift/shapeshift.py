@@ -26,14 +26,14 @@ class ShapeShift:
         return page.text
 
     def __apicall_get(self, endpoint, param={}, arg=''):
-        url = self.baseurl + "{}/".format(endpoint)
+        url = self.baseurl + "{}".format(endpoint)
         if arg != '':
             url = url + "{}/".format(arg)
         answer = self.__get(url, param)
         return json.loads(answer)
 
     def __api_call_post(self, endpoint, param={}, arg=''):
-        url = self.baseurl + "{}/".format(endpoint)
+        url = self.baseurl + "{}".format(endpoint)
         if arg != '':
             url = url + "{}/".format(arg)
         answer = self.__post(url, param)
