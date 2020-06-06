@@ -25,7 +25,7 @@ class ShapeShift:
         page = requests.post(url, data=param)
         return page.text
 
-    def __apicall_get(self, endpoint, param={}, arg=''):
+    def __apicall_get(self, endpoint, param={}, arg=''): 
         url = self.baseurl + "{}".format(endpoint)
         if arg != '':
             url = url + "/{}".format(arg)
@@ -206,8 +206,7 @@ class ShapeShift:
         return self.__apicall_get(endpoint='validateAddress', param={},
                                   arg="{}/{}".format(address, coinSymbol))
 
-
-    def shift(self, pair,withdrawal="", returnAddress=None,
+    def shift(self, pair, returnAddress=None,
               destTag=None, rsAddress=None, apiKey=None):
         """
         This is the primary data input into ShapeShift.
@@ -227,7 +226,6 @@ class ShapeShift:
         example data: {"withdrawal":"AAAAAAAAAAAAA", "pair":"btc_ltc", returnAddress:"BBBBBBBBBBB"}
         """
         payload = {
-            'amount'       : amount,
             'withdrawal'   : withdrawal,
             'pair'         : pair,
             'returnAddress': returnAddress,
@@ -263,7 +261,7 @@ class ShapeShift:
 
         return self.__api_call_post(endpoint='mail', param=payload)
 
-    def sendamount(self, amount, withdrawal, pair,
+    def sendamount(self, amount, pair,withdrawal,
                    returnAddress=None, destTag=None, rsAddress=None,
                    apiKey=None):
         """
@@ -307,6 +305,7 @@ class ShapeShift:
 
         """
         payload = {
+            'amount'       : pair,
             'withdrawal'   : withdrawal,
             'pair'         : pair,
             'returnAddress': returnAddress,
@@ -345,4 +344,4 @@ class ShapeShift:
         data type: JSON
         """
         
-        return self.__api_call_post(endpoint='cancelpending', param={'address': adddress})
+        return self.__apicall_get(endpoint='orderInfo', param={}, arg=order_id)
